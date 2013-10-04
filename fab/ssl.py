@@ -17,7 +17,8 @@ def create_certificats(project):
         return
 
     runcmd("openssl req -new -x509 -keyout key.pem "
-           "-out cert.pem -nodes -days 3650 -newkey rsa:2048 -subj '/CN=%s'")
+           "-out cert.pem -nodes -days 3650 -newkey rsa:2048 "
+           "-subj '/CN=%s'" % project)
     runcmd('chmod 0600 key.pem')
     runcmd('chmod 0644 cert.pem')
     runcmd('chown root:root key.pem cert.pem')

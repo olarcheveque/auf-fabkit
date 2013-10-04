@@ -4,13 +4,12 @@ import ssl
 import git
 import apache
 import mysql
+import venv
+import idp
 
 
-def provision(fqdn, idp_fqdn=None):
-    db_name = fqdn.replace('.', '-')
-
+def setup_web_stack():
     ssl.install_openssl()
-    ssl.create_certificats(fqdn)
 
     git.install_git()
     git.create_user()
@@ -21,15 +20,20 @@ def provision(fqdn, idp_fqdn=None):
     apache.add_mod_wsgi()
     apache.add_mod_mellon()
 
-    extra = {}
-    if idp_fqdn:
-        ssl.create_certificats(idp_fqdn)
-        apache.add_vhost(idp_fqdn, 'vhost_idp.txt')
-        extra = {'idp': idp_fqdn, }
+    mysql.install_mysql()
+    venv.install_virtualenv()
 
+
+def setup_mellon_site(fqdn, idp_fqdn):
+    db_name = fqdn.replace('.', '_')
+    mysql.setup_db(db_name)
+    extra = {'idp': idp_fqdn, }
+    ssl.create_certificats(fqdn)
     apache.add_vhost(fqdn, 'vhost_wsgi_mellon.txt', extra)
 
-    apache.restart()
 
-    mysql.install_mysql()
-    mysql.setup_db(db_name)
+def provision(fqdn, idp_fqdn=None):
+    setup_web_stack()
+    idp.setup(idp_fqdn)
+    #setup_mellon_site(fqdn, idp_fqdn)
+    apache.restart()

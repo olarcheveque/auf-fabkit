@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from fabric.api import settings
+
 from shell import runcmd
 
 MYSQL_ROOT_USER = "root"
@@ -21,23 +23,25 @@ def install_mysql():
 
 
 def create_user(user):
-    runcmd('mysql --user={root} --password={password} '
-           '--execute="CREATE USER '
-           '\'{user}\' IDENTIFIED BY \'{userpass}\'"'
-           .format(root=MYSQL_ROOT_USER,
-                   password=MYSQL_ROOT_PASSWORD,
-                   user=user,
-                   userpass=user))
+    with settings(warn_only=True):
+        runcmd('mysql --user={root} --password={password} '
+               '--execute="CREATE USER '
+               '\'{user}\' IDENTIFIED BY \'{userpass}\'"'
+               .format(root=MYSQL_ROOT_USER,
+                       password=MYSQL_ROOT_PASSWORD,
+                       user=user,
+                       userpass=user))
 
 
 def create_database(db):
-    runcmd('mysql '
-           '--user={root} '
-           '--password={password} '
-           '--execute="create database {database}"'
-           .format(root=MYSQL_ROOT_USER,
-                   password=MYSQL_ROOT_PASSWORD,
-                   database=db))
+    with settings(warn_only=True):
+        runcmd('mysql '
+               '--user={root} '
+               '--password={password} '
+               '--execute="create database {database}"'
+               .format(root=MYSQL_ROOT_USER,
+                       password=MYSQL_ROOT_PASSWORD,
+                       database=db))
 
 
 def grant_user(db):

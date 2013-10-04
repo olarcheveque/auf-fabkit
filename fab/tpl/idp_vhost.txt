@@ -1,0 +1,22 @@
+# vim: syntax=apache
+
+<VirtualHost *:443>
+        ServerName %(project)s
+        ErrorLog /var/log/apache2/%(project)s_error.log
+        CustomLog /var/log/apache2/%(project)s_access.log combined
+        LogLevel info
+
+        Alias /static/ %(project_path)s/sitestatic/
+        WSGIScriptAlias / /%(venv)s/bin/idp_wsgi.py
+
+        SSLEngine on
+        SSLCertificateFile    /etc/ssl/certs/saml-%(project)s-cert.pem
+        SSLCertificateKeyFile /etc/ssl/private/saml-%(project)s-key.pem
+
+        # broken clients
+        BrowserMatch "MSIE [2-6]" \
+                nokeepalive ssl-unclean-shutdown \
+                downgrade-1.0 force-response-1.0
+        # MSIE 7 and newer should be able to use keepalive
+        BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
+</VirtualHost>

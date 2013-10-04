@@ -1,0 +1,108 @@
+# vim: syntax=python
+# -*- coding: utf-8 -*-
+
+import os
+
+ALLOWED_HOSTS = ('*', )
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': '%(db_name)s',
+        'USER': '%(db_user)s',
+        'PASSWORD': '%(db_password)s',
+        'HOST': '127.0.0.1',
+    }
+}
+
+STATIC_ROOT = os.path.join(
+    os.path.abspath(os.path.dirname(os.path.dirname(__file__))),
+    'sitestatic')
+
+STATIC_SERVE = False
+
+TIME_ZONE = 'America/Montreal'
+
+gettext_noop = lambda s: s
+LANGUAGES = (
+    ('fr', gettext_noop('French')),
+    ('en', gettext_noop('English')),
+)
+
+AUTH_SSL = False
+AUTH_SAML2 = True
+AUTH_OPENID = False
+AUTH_OATH = False
+IDP_SAML2 = True
+IDP_OPENID = False
+IDP_CAS = False
+
+## Here put the LDAP URL of your server
+#AUTH_LDAP_SERVER_URI = None
+import ldap
+from django_auth_ldap.config import LDAPSearch
+AUTH_LDAP_SERVER_URI = 'ldap://ldap.ca.auf.org'
+# Let the bind DN and bind password blank for anonymous binding
+AUTH_LDAP_BIND_DN = ""
+AUTH_LDAP_BIND_PASSWORD = ""
+# Lookup user under the branch o=base and by mathcing their uid against the
+# received login name
+AUTH_LDAP_USER_SEARCH = LDAPSearch(
+    "ou=People,o=AuF",
+    ldap.SCOPE_SUBTREE, "(|(mail=%%(user)s)(mail=%%(user)s@auf.org))")
+
+ADMINS = (
+    ('olivier', 'olivier.larcheveque@auf.org'),
+    )
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+LOGIN_GUARD_RETRY_POLICY_ON = True
+
+SAML_SIGNATURE_PUBLIC_KEY = '''-----BEGIN CERTIFICATE-----
+MIIDGjCCAgKgAwIBAgIJAN4JhEXg+T4KMA0GCSqGSIb3DQEBBQUAMBIxEDAOBgNV
+BAMTB2lkLnUtb2wwHhcNMTMwNzIzMTUyOTQyWhcNMjMwNzIxMTUyOTQyWjASMRAw
+DgYDVQQDEwdpZC51LW9sMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
+4gbAoaEZmFAhnU1j0LGQC5kax3JistSegZR7wHePwK5mzPZdOinUF4fdCiPqhCaP
+ty8EhUs/FFD9I4c7XEO4ZE7IagIkwsDYgZX2EUgGWc0lYD4WAWERk9UHDskqshyx
+Z4aWNMqp//1djnAcSpkIwdGhCf2mO1NuM6cF9q1P/AbfvFLknuw5MNLczPpQrAEx
+vX5euMxffApXxjI1yE9UWfxGBQ9c2Le95kMIIuMMAuGY6kTx9XmFE/aggqJvMahP
+9vrSKkZZRXrdJZx84TLmwhq1o2WaZPLpo+neVC48QYUovhDy9iUwmWqlAr1m+RoM
+HubEXHjr8fiBwD86JW8rkQIDAQABo3MwcTAdBgNVHQ4EFgQUnBdN82wP+4wTsfB8
+MpdjwmSUs4AwQgYDVR0jBDswOYAUnBdN82wP+4wTsfB8MpdjwmSUs4ChFqQUMBIx
+EDAOBgNVBAMTB2lkLnUtb2yCCQDeCYRF4Pk+CjAMBgNVHRMEBTADAQH/MA0GCSqG
+SIb3DQEBBQUAA4IBAQCl9zoEyJebJIsIBcGD9cA2IWenWOpSZofePstn32PLcKC4
+TlEocKEU4q69KhFgvaD4Y/Zh3WiFaWTOA83ng+x/RScxTibi41fVY+OCl794lwJm
+nvPu+L9O23csXBKyZDYEg/JX/jnEhklohDkjPLUr/8Z8aR07H+iv+tPNKbFP1Zys
+//5TKJPygRCtFEgCMUY7ur7tb/je6JfLzsa6N34r8ocXS0vdUt1z3X4uaiXuPt01
+aQqrngq7NtwmWgpxvmLaK0FjWsQdaUW4sl7WtNhWhGnZyCu9lW6j52hRop7MqHtV
+4nROSDjMrfl7CUzf8BY7O71+6Pra36FJ1ZHVzfPx
+-----END CERTIFICATE-----'''
+
+SAML_SIGNATURE_PRIVATE_KEY = '''-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEA4gbAoaEZmFAhnU1j0LGQC5kax3JistSegZR7wHePwK5mzPZd
+OinUF4fdCiPqhCaPty8EhUs/FFD9I4c7XEO4ZE7IagIkwsDYgZX2EUgGWc0lYD4W
+AWERk9UHDskqshyxZ4aWNMqp//1djnAcSpkIwdGhCf2mO1NuM6cF9q1P/AbfvFLk
+nuw5MNLczPpQrAExvX5euMxffApXxjI1yE9UWfxGBQ9c2Le95kMIIuMMAuGY6kTx
+9XmFE/aggqJvMahP9vrSKkZZRXrdJZx84TLmwhq1o2WaZPLpo+neVC48QYUovhDy
+9iUwmWqlAr1m+RoMHubEXHjr8fiBwD86JW8rkQIDAQABAoIBAG05giEZLrsyDexs
+F44kIE3agNxc5GEy6h4IWP0bSfZ80OS/MTIIQJvWZfSegpe14sFNEUwwnpz8vjdL
+BF6DwzmF8Md5nbYXZwjIJQ8Y1SjUP/mQRyYHeG0OBskYYW+M+hXjLfb48Mnp8CoC
+90j9RwQSf1XKo2gL2zdOwU0BV6Ob7iPTTrneYZvOMkVi7e+AD6s/Vj6623vcaM8d
+0CiMEfHiNII7pVtCD3qfacvMwmLliMQOMVgax1gHnNvBQLprR1GFZEzuodcRhQE2
+KkVZ+ojPS1N/ogjFWpocaMSQpXeaJvn8hP+g76WHneapttkdP/59CJwrVbGGtVlB
+PGUeJ5kCgYEA+VPR/YCnlhMapDtvvbg0ffUsf+UuA6mWZqky1zi0k0MxhB/jIsS/
+6a5ecQnmAPixGiHEgJs4ibTZ8RCSfTYNh+3YuZk+YrARtdYnfv5y5BRHYWBkdrY8
+jkUplA8k+4q50FdBDVmHyRP/thd9rCwYLgV0E66fk7tSkfZJWcS6Zr8CgYEA6BNL
+ECwU6tBhLcGgqcrdkiUoOqMLe3iAi+Wzy7tdsEapFDZs6clpcVZPvWcmaYl8oIbG
+uXADZCQ5ofvZr5KV5rKN/nyrb1GxjCsrX2hE2nMoadqj+W+BYjaFKUxAUP3uU07X
+RvNNJHlY3Q1tshSLUwDJE4NACWTNCXIfN7Uf0a8CgYBqdjAkXtswadfmaLq99/ny
+Ds6Bjgqn5bIjA/yBieURPI/YKwWBwyFvVtVczy03HPoCfoi5oY3yvxaQqNLkREBi
+2lzAY38QBL6LNnaG8397hG02V0KOriINXdrzLcRM5F+TZq6QVLp2UePOjRlMe0eX
+3xxBiz74hfQr/04y1p4BYQKBgE3NYgXa8WxDTcD8P/OMWjnLkTAPRyMuo9HCwUMU
+3nThS3/GOz8pUds4N2Vk9mC9QfXDGU5Dui9RYazndPRCbVS5GZdujj60oZQ/SLwk
+hajCoJLURNKzyil147CTqqA8cTCmps9Xc849jEgXX2YrMwYxpjePceF0VLTM+KBB
+bZhrAoGAJijJXUqY97UO7g07JhAu5MS6/YnDW1lOSLkEjE7Kv6p+LcU/5D8q5JOv
+kiLOZCVbvddIIFRRzKhKIL8yNC3ixVdVKmhfw7rHlwj7DbQcUeEtBSdvxgoG5SEk
+7kXNxcsfU4yrH31B4Pn8gGM+8HJt6cOpVbPRWNXM6RHcE7OuUt0=
+-----END RSA PRIVATE KEY-----'''

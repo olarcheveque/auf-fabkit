@@ -2,7 +2,7 @@
 
 import os
 
-from fabric.api import settings, sudo
+from fabric.api import settings, sudo as fab_sudo
 
 from shell import runcmd
 
@@ -12,8 +12,8 @@ GIT_GROUP = "git-web"
 GIT_HOME = "/srv/www"
 
 
-def sudo_git(args):
-    sudo("%s" % args, pty=True, user=GIT_USER)
+def sudo(args):
+    fab_sudo("%s" % args, pty=True, user=GIT_USER)
 
 
 def install_git():
@@ -28,7 +28,11 @@ def create_user():
                '{username}'.format(username=GIT_USER, home=GIT_HOME))
 
 
+def home(name):
+    return os.path.join(GIT_HOME, name)
+
+
 def clone(url, name):
     with settings(warn_only=True):
-        sudo_git('git clone %s %s' %
-                (url, os.path.join(GIT_HOME, name)))
+        sudo('git clone %s %s' %
+             (url, os.path.join(GIT_HOME, name)))
