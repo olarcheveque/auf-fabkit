@@ -4,6 +4,7 @@ from fabric.api import settings
 
 from shell import runcmd
 
+MYSQL_VERSION = "5.5"
 MYSQL_ROOT_USER = "root"
 MYSQL_ROOT_PASSWORD = "root"
 
@@ -11,13 +12,14 @@ MYSQL_P_HOST = '127.0.0.1'
 
 
 def install():
-    runcmd('echo "mysql-server mysql-server/mysql_root_password '
-           'select {password}" |'
-           'debconf-set-selections'.format(
-               password=MYSQL_ROOT_PASSWORD))
-    runcmd('echo "mysql-server mysql-server/mysql_root_password_again select '
-           '{password}" | debconf-set-selections'.format(
-               password=MYSQL_ROOT_PASSWORD))
+    runcmd('debconf-set-selections <<< \'mysql-server-{version} '
+           'mysql-server/root_password password {password}\''.format(
+               password=MYSQL_ROOT_PASSWORD,
+               version=MYSQL_VERSION))
+    runcmd('debconf-set-selections <<< \'mysql-server-{version} '
+           'mysql-server/root_password_again password {password}\''.format(
+               password=MYSQL_ROOT_PASSWORD,
+               version=MYSQL_VERSION))
 
     runcmd('apt-get -y install mysql-server')
 
