@@ -5,7 +5,7 @@ import os
 from fabric.contrib.files import upload_template
 
 from git import GIT_HOME
-from shell import runcmd, TPL_DIR
+from utils import runcmd, TPL_DIR
 
 import mellon
 

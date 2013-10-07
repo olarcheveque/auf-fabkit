@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from shell import runcmd
+from utils import runcmd
 
 
 def install_deb_toolkit():

@@ -5,7 +5,7 @@ import datetime
 
 from fabric.api import cd, settings, sudo as fab_sudo
 
-from shell import runcmd
+from utils import runcmd
 
 
 GIT_USER = "git-web"

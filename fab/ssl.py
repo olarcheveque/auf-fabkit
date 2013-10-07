@@ -2,7 +2,7 @@
 
 from fabric.contrib import files
 
-from shell import runcmd
+from utils import runcmd
 
 
 def install():

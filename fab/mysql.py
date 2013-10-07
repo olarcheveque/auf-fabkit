@@ -2,7 +2,7 @@
 
 from fabric.api import settings
 
-from shell import runcmd
+from utils import runcmd
 
 MYSQL_VERSION = "5.5"
 MYSQL_ROOT_USER = "root"

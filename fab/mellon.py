@@ -3,7 +3,7 @@
 from fabric.contrib import files
 from fabric.api import cd
 
-from shell import runcmd
+from utils import runcmd
 from debian import install_deb_toolkit
 
 

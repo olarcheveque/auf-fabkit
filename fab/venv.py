@@ -2,7 +2,7 @@
 
 import os
 
-from shell import runcmd
+from utils import runcmd
 
 import git
 

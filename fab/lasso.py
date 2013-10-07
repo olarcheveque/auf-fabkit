@@ -5,7 +5,7 @@ from fabric.contrib import files
 
 from debian import install_deb_toolkit
 
-from shell import runcmd
+from utils import runcmd
 
 
 def install_build_deps():

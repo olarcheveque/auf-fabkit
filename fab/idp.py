@@ -5,7 +5,7 @@ import os
 from fabric.api import cd
 from fabric.contrib.files import upload_template
 
-from shell import TPL_DIR, runcmd
+from utils import TPL_DIR, runcmd
 
 import lasso
 import ssl
