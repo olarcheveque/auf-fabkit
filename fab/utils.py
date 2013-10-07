@@ -20,4 +20,4 @@ def runcmd(arg):
 
 def setup_fabric(env):
     env.password = FABRIC_ENV_PASSWORD
-    env.roledefs.upadate(FABRIC_ENV_ROLEDEFS)
+    env.roledefs.update(FABRIC_ENV_ROLEDEFS)
