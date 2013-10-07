@@ -16,7 +16,7 @@ def get_home_sites():
     return GIT_HOME
 
 
-def install_apache():
+def install():
     runcmd('apt-get -y install apache2')
 
 

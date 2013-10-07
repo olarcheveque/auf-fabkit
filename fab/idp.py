@@ -17,8 +17,17 @@ import venv
 
 def setup(idp_fqdn):
     # DEPS
-    lasso.install_lasso()
+    lasso.install()
+    mysql.install()
+    ssl.install()
+    git.install()
+    apache.install()
+    apache.add_mod_rewrite()
+    apache.add_mod_ssl()
+    apache.add_mod_wsgi()
+    venv.install_virtualenv()
     runcmd('apt-get install -y python-ldap')
+    runcmd('apt-get install -y python-mysqldb --force-yes')
 
     # DB
     db_name = idp_fqdn.replace('.', '_')
@@ -31,6 +40,7 @@ def setup(idp_fqdn):
 
     # SOURCE
     git.clone('git://git.auf.org/authentic2', idp_fqdn)
+    git.checkout(idp_fqdn, 'master')
 
     # VIRTUALENV
     venv.mkenv(idp_fqdn)

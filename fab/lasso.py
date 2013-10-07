@@ -33,5 +33,5 @@ def build_lasso():
         runcmd('debuild -sa -us -uc')
 
 
-def install_lasso():
+def install():
     runcmd('apt-get install -y python-lasso')

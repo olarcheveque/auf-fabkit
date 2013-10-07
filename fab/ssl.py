@@ -5,7 +5,7 @@ from fabric.contrib import files
 from shell import runcmd
 
 
-def install_openssl():
+def install():
     runcmd('apt-get -y install openssl')
 
 

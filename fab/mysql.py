@@ -10,7 +10,7 @@ MYSQL_ROOT_PASSWORD = "root"
 MYSQL_P_HOST = '127.0.0.1'
 
 
-def install_mysql():
+def install():
     runcmd('echo "mysql-server mysql-server/mysql_root_password '
            'select {password}" |'
            'debconf-set-selections'.format(

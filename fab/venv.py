@@ -10,7 +10,7 @@ VIRTUAL_ENVS = os.path.join(git.GIT_HOME, '.virtualenvs')
 
 
 def install_virtualenv():
-    runcmd('apt-get install -y python-virtualenv')
+    runcmd('apt-get install -y python-virtualenv --force-yes')
 
 
 def mkenv(project):
