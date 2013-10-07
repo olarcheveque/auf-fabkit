@@ -105,3 +105,5 @@ def setup(idp_fqdn):
     runcmd('chmod +x %s' % (destination,))
     git.sudo('%s syncdb --migrate --noinput' % (destination,))
     git.sudo('%s collectstatic --noinput' % (destination,))
+
+    apache.restart()
