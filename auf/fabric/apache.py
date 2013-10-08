@@ -30,7 +30,7 @@ def get_home_sites():
 
 def install():
     """
-    Installe le pquet apache2
+    Installe le paquet apache2
     """
     runcmd('apt-get -y install apache2')
 
