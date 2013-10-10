@@ -4,22 +4,33 @@
    contain the root `toctree` directive.
 
 Documentation de auf.fabric
-===========================
+***************************
+
+Ce paquet Python offre des fonctions qui facilitent la création de fichier
+*fabfile.py* à la racine des projets Web Python de l'AUF.
+
+Il permet de configurer spécifiquement la machine virtuelle (Vagrant) déclarée
+dans ce projet en utilisant les fonctions de *auf.fabric*.
+
+
+Historique
+==========
+
+.. include:: ../CHANGES
+
+
+Installation
+============
+
+La version de ce module à installer dépend directement du projet.
+Il faut installer la version spécifiée dans le fichier *requirements*.
+
+
+Modules
+=======
 
 .. toctree::
-   :maxdepth: 2
-
-.. automodule:: auf.fabric.utils
-   :members:
-
-.. automodule:: auf.fabric.git
-   :members:
-
-.. automodule:: auf.fabric.apache
-   :members:
-
-.. automodule:: auf.fabric.lasso
-   :members:
+   modules.rst
 
 Indices and tables
 ==================

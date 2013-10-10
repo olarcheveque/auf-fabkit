@@ -1,4 +1,13 @@
 # -*- coding: utf-8 -*-
+"""
+Module IdP
+==========
+
+Module qui permet de mettre en place un serveur d'indentité basé sur
+authentic2.
+
+"""
+
 
 import os
 
@@ -15,7 +24,10 @@ import mysql
 import venv
 
 
-def setup(idp_fqdn):
+def install(idp_fqdn):
+    """
+    Installe un serveur d'indentité disponible à *idp_fqdn*.
+    """
     # DEPS
     lasso.install()
     mysql.install()

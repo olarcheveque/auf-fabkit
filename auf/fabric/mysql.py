@@ -1,17 +1,34 @@
 # -*- coding: utf-8 -*-
+"""
+Module MySQL
+============
+
+Module qui permet de d'installer et de configurer un serveur de base de données
+MySQL.
+"""
+
 
 from fabric.api import settings
 
 from utils import runcmd
 
+# Version de MySQL (wheezy)
 MYSQL_VERSION = "5.5"
+
+# User Root
 MYSQL_ROOT_USER = "root"
+
+# Password Root
 MYSQL_ROOT_PASSWORD = "root"
 
+# Adresse du serveur IP (pour accéder en mode TCP)
 MYSQL_P_HOST = '127.0.0.1'
 
 
 def install():
+    """
+    Installe le serveur MySQL selon des accès prédéfinis
+    """
     runcmd('debconf-set-selections <<< \'mysql-server-{version} '
            'mysql-server/root_password password {password}\''.format(
                password=MYSQL_ROOT_PASSWORD,
@@ -25,6 +42,9 @@ def install():
 
 
 def create_user(user):
+    """
+    Création d'un utilisateur *user* avec un mode de passe identique à *user*
+    """
     with settings(warn_only=True):
         runcmd('mysql --user={root} --password={password} '
                '--execute="CREATE USER '
@@ -36,6 +56,9 @@ def create_user(user):
 
 
 def create_database(db):
+    """
+    Création d'une base de donnée nommée *db*
+    """
     with settings(warn_only=True):
         runcmd('mysql '
                '--user={root} '
@@ -47,6 +70,9 @@ def create_database(db):
 
 
 def grant_user(db):
+    """
+    donner toutes les permissions au user *db* sur la base de données *db*.
+    """
     runcmd('mysql --user={root} --password={password} '
            '--execute="GRANT ALL ON {database}.* TO '
            '\'{user}\'@\'127.0.0.1\' IDENTIFIED BY \'{userpass}\'"'
@@ -58,6 +84,11 @@ def grant_user(db):
 
 
 def setup_db(db):
-        create_user(db)
-        create_database(db)
-        grant_user(db)
+    """
+    Créer un user *db*
+    Créer une base de données *db*
+    Donner tous les privilèges à l'utilisateur *db* sur la base de données *db*
+    """
+    create_user(db)
+    create_database(db)
+    grant_user(db)
