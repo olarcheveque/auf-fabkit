@@ -24,7 +24,27 @@ import mysql
 import venv
 
 
-def install(idp_fqdn):
+# Nom par défaut du serveur d'indentité
+FQDN = 'id.local'
+
+
+def get_metadata(idp_fqdn=FQDN):
+    """
+    Télécharge dans /etc/ssl le fichier metadata.xml
+    """
+    runcmd('wget --no-check-certificate '
+           'https://%(idp_fqdn)s/idp/saml2/metadata -O- > '
+           '/etc/ssl/saml-%(idp_fqdn)s-metadata.xml' % {'idp_fqdn': idp_fqdn})
+
+
+def register_sp(fqdn):
+    """
+    TODO
+    """
+    pass
+
+
+def install(idp_fqdn=FQDN):
     """
     Installe un serveur d'indentité disponible à *idp_fqdn*.
     """

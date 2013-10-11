@@ -23,6 +23,15 @@ FABRIC_ENV_ROLEDEFS = {
     'vagrant': ['vagrant@127.0.0.1:2222', ],
     }
 
+# Montage FS du répertoire partagé avec la VM
+VAGRANT_SHARED_ROOT = '/vagrant'
+
+# user vagrant dans VM
+VAGRANT_USER = 'vagrant'
+
+# group vagrant dans VM
+VAGRANT_GROUP = 'vagrant'
+
 
 def runcmd(arg):
     """
